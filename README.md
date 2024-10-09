@@ -1,9 +1,9 @@
 # Parcial Segundo Corte Desarrollo Web 🚀
 
 
-Nombre completo estudiante :
+Nombre completo estudiante : Juan Manuel Deutsch
 
-Codigo :
+Codigo : 242530
 
 **Descripción del Problema:**
 
