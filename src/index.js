@@ -1,13 +1,34 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import FoodList from "./pages/foodList";
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import { FoodProvider } from "./context/foodCtx";
+import { FiltersProvider } from "./context/filtersCtx";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <FoodList />,
+  },
+  {
+    path: '/detail/:idMeal',
+    //element: <DetailPokemon />,
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <FoodProvider>
+      <FiltersProvider>
+        <RouterProvider router={router}/>
+      </FiltersProvider>
+    </FoodProvider>
   </React.StrictMode>
 );
 
