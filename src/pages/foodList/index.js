@@ -2,8 +2,8 @@ import React from 'react';
 
 import "./index.css";
 
-import SearchBox from '../../components1/searchbox';
-import FoodCard from '../../components1/foodCard';
+import SearchBox from '../../components/searchbox';
+import FoodCard from '../../components/foodCard';
 
 import useFoods from "../../hooks/useFood";
 import {useFoodContext} from '../../context/foodCtx';

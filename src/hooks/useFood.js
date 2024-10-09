@@ -1,40 +1,44 @@
 import { useEffect, useCallback } from "react";
-import { useDispatchFood } from "../context/foodCtx";
+import { useDispatchFood} from "../context/foodCtx";
 import { actions } from "../context/foodReducer";
 import { useFiltersContext } from "../context/filtersCtx";
 import { FetchMealByFirstLetter, SearchMealByName } from "../services/mealtService";
+
+const fetchDataByFilters = async (filters) => {
+  if (filters.search) {
+      const meals = await SearchMealByName(filters.search);
+      return meals || [];
+  } else {
+      const mealsByLetter = await FetchMealByFirstLetter(filters.letter || 'b');
+      return mealsByLetter || [];
+  }
+};
 
 const useFoods = () => {
   const dispatch = useDispatchFood();
   const { filters } = useFiltersContext();
 
-  const fetchFoods = useCallback(async () => {
-    dispatch({ type: actions.SET_LOADING, payload: true });
-    try {
-      let foods;
-      if (filters.search) {
-        foods = await SearchMealByName(filters.search);
-      } else {
-        foods = await FetchMealByFirstLetter(filters.letter || "b");
-      }
+  const applyMealsData = useCallback(async () => {
+      dispatch({ type: actions.SET_LOADING, payload: true });
 
-      if (foods.meals) {
-        dispatch({ type: actions.SET_MEALS, payload: foods.meals });
-      } else {
-        dispatch({ type: actions.SET_MEALS, payload: [] });
-      } console.log("foods", foods);
-    } catch (error) {
-      console.error("Error fetching meals:", error);
-      dispatch({ type: actions.SET_MEALS, payload: [] });
-    } finally {
-      dispatch({ type: actions.SET_LOADING, payload: false });
-    }
-  }, [dispatch, filters.search, filters.letter]);
+      try {
+          const meals = await fetchDataByFilters(filters);
+          
+          dispatch({
+              type: actions.SET_MEALS,
+              payload: meals.length > 0 ? meals : []
+          });
+      } catch (error) {
+          console.error("Error fetching meals:", error);
+          dispatch({ type: actions.SET_MEALS, payload: [] });
+      } finally {
+          dispatch({ type: actions.SET_LOADING, payload: false });
+      }
+  }, [dispatch, filters]);
 
   useEffect(() => {
-      fetchFoods();
-  }, [fetchFoods]);
-
+      applyMealsData();
+  }, [applyMealsData]);
 };
 
 export default useFoods;

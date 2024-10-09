@@ -7,7 +7,7 @@ export const actions = {
   
   export const initialState = {
     meals: [],
-    allmeals: [],
+    //allmeals: [],
     meal: null,
     loading: false,
     error: null
@@ -19,7 +19,7 @@ export const actions = {
         return {
           ...state,
           meals: action.payload,
-          allmeals: action.payload,
+          //allmeals: action.payload,
         };
       case actions.SET_MEAL:
         return { ...state, meal: action.payload };

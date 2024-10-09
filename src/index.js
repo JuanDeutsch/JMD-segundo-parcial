@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import { FoodProvider } from "./context/foodCtx";
 import { FiltersProvider } from "./context/filtersCtx";
+import DetailFood from "./pages/detailFood";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/detail/:idMeal',
-    //element: <DetailPokemon />,
+    element: <DetailFood />,
   },
 ]);
 

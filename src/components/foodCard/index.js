@@ -14,6 +14,7 @@ const FoodCard = ({ meal }) => {
   return (
     <div className="food-card" onClick={handleFoodClick}>
       <div
+      data-testid="imagen"
         id="imagen"
         style={{ backgroundImage: `url(${meal.strMealThumb})`, }}
       ></div>
