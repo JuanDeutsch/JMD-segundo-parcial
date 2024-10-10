@@ -11,4 +11,3 @@ const SearchInput = () => {
 
 export default SearchInput;
 
-//Cualquier caso lo del value
